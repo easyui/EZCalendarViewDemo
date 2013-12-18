@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9B7CA65B186173C20087D217 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7CA65A186173C20087D217 /* Foundation.framework */; };
+		9B7CA65D186173C20087D217 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7CA65C186173C20087D217 /* CoreGraphics.framework */; };
+		9B7CA65F186173C20087D217 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7CA65E186173C20087D217 /* UIKit.framework */; };
+		9B7CA665186173C20087D217 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B7CA663186173C20087D217 /* InfoPlist.strings */; };
+		9B7CA667186173C20087D217 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA666186173C20087D217 /* main.m */; };
+		9B7CA66B186173C20087D217 /* EZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA66A186173C20087D217 /* EZAppDelegate.m */; };
+		9B7CA66D186173C20087D217 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B7CA66C186173C20087D217 /* Images.xcassets */; };
+		9B7CA674186173C20087D217 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7CA673186173C20087D217 /* XCTest.framework */; };
+		9B7CA675186173C20087D217 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7CA65A186173C20087D217 /* Foundation.framework */; };
+		9B7CA676186173C20087D217 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7CA65E186173C20087D217 /* UIKit.framework */; };
+		9B7CA67E186173C20087D217 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B7CA67C186173C20087D217 /* InfoPlist.strings */; };
+		9B7CA680186173C20087D217 /* EZCalendarViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA67F186173C20087D217 /* EZCalendarViewDemoTests.m */; };
+		9B7CA68C1861740A0087D217 /* EZCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA68B1861740A0087D217 /* EZCalendarView.m */; };
+		9B7CA690186175CB0087D217 /* EZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA68E186175CB0087D217 /* EZViewController.m */; };
+		9B7CA691186175CB0087D217 /* EZViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7CA68F186175CB0087D217 /* EZViewController.xib */; };
+		9B7CA695186177460087D217 /* EZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA693186177460087D217 /* EZBaseViewController.m */; };
+		9B7CA696186177460087D217 /* EZBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7CA694186177460087D217 /* EZBaseViewController.xib */; };
+		9B7CA69A18617DDC0087D217 /* EZMutilProViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA69818617DDC0087D217 /* EZMutilProViewController.m */; };
+		9B7CA69B18617DDC0087D217 /* EZMutilProViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7CA69918617DDC0087D217 /* EZMutilProViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B7CA677186173C20087D217 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B7CA64F186173C20087D217 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B7CA656186173C20087D217;
+			remoteInfo = EZCalendarViewDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9B7CA657186173C20087D217 /* EZCalendarViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EZCalendarViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B7CA65A186173C20087D217 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9B7CA65C186173C20087D217 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9B7CA65E186173C20087D217 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9B7CA662186173C20087D217 /* EZCalendarViewDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EZCalendarViewDemo-Info.plist"; sourceTree = "<group>"; };
+		9B7CA664186173C20087D217 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9B7CA666186173C20087D217 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9B7CA668186173C20087D217 /* EZCalendarViewDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EZCalendarViewDemo-Prefix.pch"; sourceTree = "<group>"; };
+		9B7CA669186173C20087D217 /* EZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EZAppDelegate.h; sourceTree = "<group>"; };
+		9B7CA66A186173C20087D217 /* EZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EZAppDelegate.m; sourceTree = "<group>"; };
+		9B7CA66C186173C20087D217 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9B7CA672186173C20087D217 /* EZCalendarViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EZCalendarViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B7CA673186173C20087D217 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		9B7CA67B186173C20087D217 /* EZCalendarViewDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EZCalendarViewDemoTests-Info.plist"; sourceTree = "<group>"; };
+		9B7CA67D186173C20087D217 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9B7CA67F186173C20087D217 /* EZCalendarViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EZCalendarViewDemoTests.m; sourceTree = "<group>"; };
+		9B7CA68A1861740A0087D217 /* EZCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZCalendarView.h; sourceTree = "<group>"; };
+		9B7CA68B1861740A0087D217 /* EZCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZCalendarView.m; sourceTree = "<group>"; };
+		9B7CA68D186175CB0087D217 /* EZViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZViewController.h; sourceTree = "<group>"; };
+		9B7CA68E186175CB0087D217 /* EZViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZViewController.m; sourceTree = "<group>"; };
+		9B7CA68F186175CB0087D217 /* EZViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EZViewController.xib; sourceTree = "<group>"; };
+		9B7CA692186177460087D217 /* EZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZBaseViewController.h; sourceTree = "<group>"; };
+		9B7CA693186177460087D217 /* EZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZBaseViewController.m; sourceTree = "<group>"; };
+		9B7CA694186177460087D217 /* EZBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EZBaseViewController.xib; sourceTree = "<group>"; };
+		9B7CA69718617DDC0087D217 /* EZMutilProViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZMutilProViewController.h; sourceTree = "<group>"; };
+		9B7CA69818617DDC0087D217 /* EZMutilProViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZMutilProViewController.m; sourceTree = "<group>"; };
+		9B7CA69918617DDC0087D217 /* EZMutilProViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EZMutilProViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9B7CA654186173C20087D217 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B7CA65D186173C20087D217 /* CoreGraphics.framework in Frameworks */,
+				9B7CA65F186173C20087D217 /* UIKit.framework in Frameworks */,
+				9B7CA65B186173C20087D217 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B7CA66F186173C20087D217 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B7CA674186173C20087D217 /* XCTest.framework in Frameworks */,
+				9B7CA676186173C20087D217 /* UIKit.framework in Frameworks */,
+				9B7CA675186173C20087D217 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9B7CA64E186173C20087D217 = {
+			isa = PBXGroup;
+			children = (
+				9B7CA660186173C20087D217 /* EZCalendarViewDemo */,
+				9B7CA679186173C20087D217 /* EZCalendarViewDemoTests */,
+				9B7CA659186173C20087D217 /* Frameworks */,
+				9B7CA658186173C20087D217 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9B7CA658186173C20087D217 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA657186173C20087D217 /* EZCalendarViewDemo.app */,
+				9B7CA672186173C20087D217 /* EZCalendarViewDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9B7CA659186173C20087D217 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA65A186173C20087D217 /* Foundation.framework */,
+				9B7CA65C186173C20087D217 /* CoreGraphics.framework */,
+				9B7CA65E186173C20087D217 /* UIKit.framework */,
+				9B7CA673186173C20087D217 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B7CA660186173C20087D217 /* EZCalendarViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA6891861740A0087D217 /* calendar */,
+				9B7CA669186173C20087D217 /* EZAppDelegate.h */,
+				9B7CA66A186173C20087D217 /* EZAppDelegate.m */,
+				9B7CA68D186175CB0087D217 /* EZViewController.h */,
+				9B7CA68E186175CB0087D217 /* EZViewController.m */,
+				9B7CA68F186175CB0087D217 /* EZViewController.xib */,
+				9B7CA692186177460087D217 /* EZBaseViewController.h */,
+				9B7CA693186177460087D217 /* EZBaseViewController.m */,
+				9B7CA694186177460087D217 /* EZBaseViewController.xib */,
+				9B7CA69718617DDC0087D217 /* EZMutilProViewController.h */,
+				9B7CA69818617DDC0087D217 /* EZMutilProViewController.m */,
+				9B7CA69918617DDC0087D217 /* EZMutilProViewController.xib */,
+				9B7CA66C186173C20087D217 /* Images.xcassets */,
+				9B7CA661186173C20087D217 /* Supporting Files */,
+			);
+			path = EZCalendarViewDemo;
+			sourceTree = "<group>";
+		};
+		9B7CA661186173C20087D217 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA662186173C20087D217 /* EZCalendarViewDemo-Info.plist */,
+				9B7CA663186173C20087D217 /* InfoPlist.strings */,
+				9B7CA666186173C20087D217 /* main.m */,
+				9B7CA668186173C20087D217 /* EZCalendarViewDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9B7CA679186173C20087D217 /* EZCalendarViewDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA67F186173C20087D217 /* EZCalendarViewDemoTests.m */,
+				9B7CA67A186173C20087D217 /* Supporting Files */,
+			);
+			path = EZCalendarViewDemoTests;
+			sourceTree = "<group>";
+		};
+		9B7CA67A186173C20087D217 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA67B186173C20087D217 /* EZCalendarViewDemoTests-Info.plist */,
+				9B7CA67C186173C20087D217 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9B7CA6891861740A0087D217 /* calendar */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA68A1861740A0087D217 /* EZCalendarView.h */,
+				9B7CA68B1861740A0087D217 /* EZCalendarView.m */,
+			);
+			path = calendar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9B7CA656186173C20087D217 /* EZCalendarViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B7CA683186173C20087D217 /* Build configuration list for PBXNativeTarget "EZCalendarViewDemo" */;
+			buildPhases = (
+				9B7CA653186173C20087D217 /* Sources */,
+				9B7CA654186173C20087D217 /* Frameworks */,
+				9B7CA655186173C20087D217 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EZCalendarViewDemo;
+			productName = EZCalendarViewDemo;
+			productReference = 9B7CA657186173C20087D217 /* EZCalendarViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9B7CA671186173C20087D217 /* EZCalendarViewDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B7CA686186173C20087D217 /* Build configuration list for PBXNativeTarget "EZCalendarViewDemoTests" */;
+			buildPhases = (
+				9B7CA66E186173C20087D217 /* Sources */,
+				9B7CA66F186173C20087D217 /* Frameworks */,
+				9B7CA670186173C20087D217 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B7CA678186173C20087D217 /* PBXTargetDependency */,
+			);
+			name = EZCalendarViewDemoTests;
+			productName = EZCalendarViewDemoTests;
+			productReference = 9B7CA672186173C20087D217 /* EZCalendarViewDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B7CA64F186173C20087D217 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = EZ;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = cactus;
+				TargetAttributes = {
+					9B7CA671186173C20087D217 = {
+						TestTargetID = 9B7CA656186173C20087D217;
+					};
+				};
+			};
+			buildConfigurationList = 9B7CA652186173C20087D217 /* Build configuration list for PBXProject "EZCalendarViewDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9B7CA64E186173C20087D217;
+			productRefGroup = 9B7CA658186173C20087D217 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B7CA656186173C20087D217 /* EZCalendarViewDemo */,
+				9B7CA671186173C20087D217 /* EZCalendarViewDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B7CA655186173C20087D217 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B7CA691186175CB0087D217 /* EZViewController.xib in Resources */,
+				9B7CA665186173C20087D217 /* InfoPlist.strings in Resources */,
+				9B7CA696186177460087D217 /* EZBaseViewController.xib in Resources */,
+				9B7CA69B18617DDC0087D217 /* EZMutilProViewController.xib in Resources */,
+				9B7CA66D186173C20087D217 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B7CA670186173C20087D217 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B7CA67E186173C20087D217 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9B7CA653186173C20087D217 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B7CA667186173C20087D217 /* main.m in Sources */,
+				9B7CA68C1861740A0087D217 /* EZCalendarView.m in Sources */,
+				9B7CA66B186173C20087D217 /* EZAppDelegate.m in Sources */,
+				9B7CA69A18617DDC0087D217 /* EZMutilProViewController.m in Sources */,
+				9B7CA695186177460087D217 /* EZBaseViewController.m in Sources */,
+				9B7CA690186175CB0087D217 /* EZViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B7CA66E186173C20087D217 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B7CA680186173C20087D217 /* EZCalendarViewDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9B7CA678186173C20087D217 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B7CA656186173C20087D217 /* EZCalendarViewDemo */;
+			targetProxy = 9B7CA677186173C20087D217 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9B7CA663186173C20087D217 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B7CA664186173C20087D217 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9B7CA67C186173C20087D217 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B7CA67D186173C20087D217 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9B7CA681186173C20087D217 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9B7CA682186173C20087D217 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B7CA684186173C20087D217 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EZCalendarViewDemo/EZCalendarViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "EZCalendarViewDemo/EZCalendarViewDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9B7CA685186173C20087D217 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EZCalendarViewDemo/EZCalendarViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "EZCalendarViewDemo/EZCalendarViewDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		9B7CA687186173C20087D217 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EZCalendarViewDemo.app/EZCalendarViewDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EZCalendarViewDemo/EZCalendarViewDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "EZCalendarViewDemoTests/EZCalendarViewDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		9B7CA688186173C20087D217 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EZCalendarViewDemo.app/EZCalendarViewDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EZCalendarViewDemo/EZCalendarViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "EZCalendarViewDemoTests/EZCalendarViewDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B7CA652186173C20087D217 /* Build configuration list for PBXProject "EZCalendarViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B7CA681186173C20087D217 /* Debug */,
+				9B7CA682186173C20087D217 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B7CA683186173C20087D217 /* Build configuration list for PBXNativeTarget "EZCalendarViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B7CA684186173C20087D217 /* Debug */,
+				9B7CA685186173C20087D217 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9B7CA686186173C20087D217 /* Build configuration list for PBXNativeTarget "EZCalendarViewDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B7CA687186173C20087D217 /* Debug */,
+				9B7CA688186173C20087D217 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9B7CA64F186173C20087D217 /* Project object */;
+}
