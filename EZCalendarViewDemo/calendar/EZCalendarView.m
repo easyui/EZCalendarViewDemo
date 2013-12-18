@@ -425,13 +425,13 @@
     CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    CGRect rectangle = CGRectMake(0, 0, self.frame.size.width, kEZCalendarViewTopBarHeight);
+    CGRect rectangle = CGRectMake(0, 0, kEZCalendarViewWidth, kEZCalendarViewTopBarHeight);
     CGContextAddRect(context, rectangle);
     CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     CGContextFillPath(context);
 
     // Arrows
-    int arrowSize = 12;
+    int arrowSize = 15;
     int xmargin = 15;
     int ymargin = 18;
 
@@ -449,9 +449,9 @@
 
     // Arrow right
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, self.frame.size.width - (xmargin + arrowSize / 1.5), ymargin);
-    CGContextAddLineToPoint(context, self.frame.size.width - xmargin, ymargin + arrowSize / 2);
-    CGContextAddLineToPoint(context, self.frame.size.width - (xmargin + arrowSize / 1.5), ymargin + arrowSize);
+    CGContextMoveToPoint(context, kEZCalendarViewWidth - (xmargin + arrowSize / 1.5), ymargin);
+    CGContextAddLineToPoint(context, kEZCalendarViewWidth - xmargin, ymargin + arrowSize / 2);
+    CGContextAddLineToPoint(context, kEZCalendarViewWidth - (xmargin + arrowSize / 1.5), ymargin + arrowSize);
 //    CGContextAddLineToPoint(context, self.frame.size.width - (xmargin + arrowSize / 1.5), ymargin);
 
     CGContextSetFillColorWithColor(context,
@@ -779,12 +779,14 @@
     if (offset >= (2 * kEZCalendarViewWidth)) {
         [self showNextMonth];
         //        self.scrollView.backgroundColor = [UIColor clearColor];
+         [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0) animated:NO];
         return;
     }
 
     if (offset <= 0) {
         [self showPreviousMonth];
         //        self.scrollView.backgroundColor = [UIColor clearColor];
+         [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0) animated:NO];
         return;
     }
 
