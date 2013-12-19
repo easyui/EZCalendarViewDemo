@@ -38,6 +38,7 @@
     self.calendar.dayCellFont = [UIFont systemFontOfSize:18];
     self.calendar.dayCurrntCellColor = [UIColor cyanColor ];
     self.calendar.dayNotCurrntCellColor = [UIColor darkGrayColor];
+    self.calendar.arrowColor = [UIColor blueColor];
     self.calendar.delegate=self;
     [self.view addSubview:self.calendar];
 }
@@ -82,5 +83,6 @@
     self.calendar.selectMarkedColor = [UIColor yellowColor];
     self.calendar.selectTodayMarkedColor = [UIColor redColor];
         self.calendar.weekdayColor = [UIColor orangeColor];
+    self.calendar.separateLineColor = [UIColor greenColor];
 }
 @end

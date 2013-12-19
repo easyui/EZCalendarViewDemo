@@ -51,6 +51,8 @@
         self.clipsToBounds = YES;
         self.isAnimating = NO;
 
+        //初始化箭头
+        _arrowColor = [UIColor blackColor];
         // 初始化标题
         self.labelCurrentMonth = [[UILabel alloc] initWithFrame:CGRectMake(34, 0, kEZCalendarViewWidth - 68, 40)];
         [self addSubview:self.labelCurrentMonth];
@@ -69,8 +71,12 @@
         [self.scrollView setContentOffset:CGPointMake(kEZCalendarViewWidth, 0) animated:NO];
         self.scrollView.pagingEnabled = YES;
         self.scrollView.backgroundColor = [UIColor clearColor]; // [UIColor colorWithWhite:.5 alpha:.5];
+//        self.scrollView.autoresizingMask =
+//        UIViewAutoresizingFlexibleTopMargin   |
+//        UIViewAutoresizingFlexibleHeight      ;
         [self addSubview:self.scrollView];
 
+        self.separateLineColor = [UIColor blackColor];
         //选中圆点
         _markedColor = [UIColor colorWithHexString:@"0x383838"];
         _selectMarkedColor = [UIColor whiteColor];
@@ -110,13 +116,13 @@
     int currentMonthMonth = [self.currentMonth month];
 
     if (selectedDateYear < currentMonthYear) {
-        [self showPreviousMonth];
+        [self showPreviousMonthAnimated:YES];
     } else if (selectedDateYear > currentMonthYear) {
-        [self showNextMonth];
+        [self showNextMonthAnimated:YES];
     } else if (selectedDateMonth < currentMonthMonth) {
-        [self showPreviousMonth];
+        [self showPreviousMonthAnimated:YES];
     } else if (selectedDateMonth > currentMonthMonth) {
-        [self showNextMonth];
+        [self showNextMonthAnimated:YES];
     } else {
         [self setNeedsDisplay];
     }
@@ -171,7 +177,7 @@
 }
 
 #pragma mark - Next & Previous & Today
-- (void)showNextMonth
+- (void)showNextMonthAnimated:(BOOL)animated
 {
     if (self.isAnimating) {
         return;
@@ -225,7 +231,8 @@
 
     // Animation
     __weak EZCalendarView *blockSafeSelf = self;
-    [UIView animateWithDuration:.0
+    NSTimeInterval duration = animated?0.33:0.;
+    [UIView animateWithDuration:duration
             animations  :^{
         [self updateSize];
         self.animationView_A.frameX = -kEZCalendarViewWidth;
@@ -254,7 +261,7 @@
     ];
 }
 
-- (void)showPreviousMonth
+- (void)showPreviousMonthAnimated:(BOOL)animated
 {
     if (self.isAnimating) {
         return;
@@ -302,7 +309,8 @@
      */
 
     __weak EZCalendarView *blockSafeSelf = self;
-    [UIView animateWithDuration:.0
+     NSTimeInterval duration = animated?0.33:0.;
+    [UIView animateWithDuration:duration
             animations:^{
         [self updateSize];
         self.animationView_A.frameX = kEZCalendarViewWidth;
@@ -338,6 +346,20 @@
 
     [self reset];
 }
+
+- (void)refresh
+{
+    self.markedDates = nil;
+    self.markedColors = nil;
+    
+    if ([self.delegate respondsToSelector:@selector(calendarView:switchedToMonth:targetHeight:animated:)]) {
+        [self.delegate calendarView:self switchedToMonth:[self.currentMonth month] targetHeight:self.calendarHeight animated:NO];
+    }
+    
+    [self reset];
+}
+
+
 
 #pragma mark - update size & row count
 - (void)updateSize
@@ -389,9 +411,9 @@
 
     // Touch either arrows or month in middle
     if (CGRectContainsPoint(rectArrowLeft, touchPoint)) {
-        [self showPreviousMonth];
+        [self showPreviousMonthAnimated:YES];
     } else if (CGRectContainsPoint(rectArrowRight, touchPoint)) {
-        [self showNextMonth];
+        [self showNextMonthAnimated:YES];
     } else if (CGRectContainsPoint(self.labelCurrentMonth.frame, touchPoint)&&self.currentMonthEnable) {
         // Detect touch in current month
         //        int currentMonthIndex = [self.currentMonth month];
@@ -442,8 +464,8 @@
     CGContextAddLineToPoint(context, xmargin, ymargin + arrowSize / 2);
     CGContextAddLineToPoint(context, xmargin + arrowSize / 1.5, ymargin);
 
-    CGContextSetFillColorWithColor(context,
-        [UIColor blackColor].CGColor);
+    CGContextSetStrokeColorWithColor(context,
+        self.arrowColor.CGColor);
 //      CGContextFillPath(context);
     CGContextStrokePath(context);
 
@@ -454,8 +476,8 @@
     CGContextAddLineToPoint(context, kEZCalendarViewWidth - (xmargin + arrowSize / 1.5), ymargin + arrowSize);
 //    CGContextAddLineToPoint(context, self.frame.size.width - (xmargin + arrowSize / 1.5), ymargin);
 
-    CGContextSetFillColorWithColor(context,
-        [UIColor blackColor].CGColor);
+    CGContextSetStrokeColorWithColor(context,
+        self.arrowColor.CGColor);
 //    CGContextFillPath(context);
     CGContextStrokePath(context);
 
@@ -700,7 +722,7 @@
     self.selectedDate = nil;
     NSArray *arr = @[@(-1), @(2), @(-1)];
     int     count = arr.count;
-
+   
     if (!self.imageViews) {
         self.imageViews = [[NSMutableArray alloc] initWithCapacity:count];
     }
@@ -740,11 +762,11 @@
         } else if (i == 2) {
             //            prepAnimationNextMonth = NO;
         }
-
         [self setNeedsDisplay];
 
         UIImage *imageMonth = [self drawCurrentState];
-        float   targetSize = fmaxf(0, self.calendarHeight);
+           float   targetSize = fmaxf(0, self.calendarHeight);
+//        float   targetSize = fmaxf(0, self.calendarHeight);
         float   startX = 0.;
 
         if (i == 0) {
@@ -755,14 +777,17 @@
             startX = 1.;
         }
 
-        UIImageView *imageViewMonth = [[UIImageView alloc] initWithFrame:CGRectMake(kEZCalendarViewWidth * (startX), 0, kEZCalendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
+        UIImageView *imageViewMonth = [[UIImageView alloc]initWithImage:imageMonth];//[[UIImageView alloc] initWithFrame:CGRectMake(kEZCalendarViewWidth * (startX), 0, kEZCalendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
         [imageViewMonth setClipsToBounds:YES];
         imageViewMonth.image = imageMonth;
-        [self.scrollView addSubview:imageViewMonth];
-        [self.imageViews addObject:imageViewMonth];
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(kEZCalendarViewWidth * (startX), 0, kEZCalendarViewWidth,(kEZCalendarViewDayHeight + 2) * 6 + 1)];
+        view.backgroundColor = self.gridBackgroundColor;
+        [view addSubview:imageViewMonth];
+        [self.scrollView addSubview:view];
+        [self.imageViews addObject:view];
     }
 
-    self.scrollView.backgroundColor = [UIColor blackColor];
+    self.scrollView.backgroundColor = self.separateLineColor;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -777,14 +802,14 @@
     }
 
     if (offset >= (2 * kEZCalendarViewWidth)) {
-        [self showNextMonth];
+        [self showNextMonthAnimated:NO];
         //        self.scrollView.backgroundColor = [UIColor clearColor];
          [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0) animated:NO];
         return;
     }
 
     if (offset <= 0) {
-        [self showPreviousMonth];
+        [self showPreviousMonthAnimated:NO];
         //        self.scrollView.backgroundColor = [UIColor clearColor];
          [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0) animated:NO];
         return;
@@ -793,7 +818,7 @@
     if (self.imageViews.count == 0) {
         [self setScrollImages];
 
-        for (UIImageView *imageView in self.imageViews) {
+        for (UIView *imageView in self.imageViews) {
             CGFloat scale = 1.f - (fabs(offset) > 0 ? 0.005 : 0);
             imageView.transform = CGAffineTransformMakeScale(scale, 1);
         }
@@ -889,6 +914,11 @@
 -(void)setDayNotCurrntCellColor:(UIColor *)dayNotCurrntCellColor{
     _dayNotCurrntCellColor = dayNotCurrntCellColor;
  [self setNeedsDisplay];
+}
+
+-(void)setArrowColor:(UIColor *)arrowColor{
+    _arrowColor = arrowColor;
+    [self setNeedsDisplay];
 }
 @end
 

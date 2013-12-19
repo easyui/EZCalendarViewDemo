@@ -15,10 +15,15 @@
 }
 
 @property (nonatomic, strong) id <EZCalendarViewDelegate> delegate;
+
+@property (nonatomic, strong) UIColor *arrowColor;
+
 @property (nonatomic, strong) NSDate *currentMonth;
 @property (nonatomic, strong) UILabel *labelCurrentMonth;
 @property (nonatomic, assign) BOOL currentMonthEnable;
 @property (nonatomic, strong) NSString * currentMonthFormat;
+
+@property (nonatomic, strong) UIColor *separateLineColor;
 
 @property (nonatomic, strong) NSArray *markedDates;
 @property (nonatomic, strong) NSArray *markedColors;
@@ -43,9 +48,10 @@
 
 -(void)markDates:(NSArray *)dates;
 -(void)markDates:(NSArray *)dates withColors:(NSArray *)colors;
--(void)showNextMonth;
--(void)showPreviousMonth;
+-(void)showNextMonthAnimated:(BOOL)animated;
+-(void)showPreviousMonthAnimated:(BOOL)animated;
 -(void)toToday;
+-(void)refresh;
 
 @end
 
