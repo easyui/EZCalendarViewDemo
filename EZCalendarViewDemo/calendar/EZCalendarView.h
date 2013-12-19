@@ -45,6 +45,8 @@
 @property (nonatomic, strong) UIColor *dayNotCurrntCellColor;
 @property (nonatomic, strong) UIColor *dayCurrntCellColor;
 
+@property (nonatomic, assign) BOOL scrollEnabled;
+
 
 -(void)markDates:(NSArray *)dates;
 -(void)markDates:(NSArray *)dates withColors:(NSArray *)colors;

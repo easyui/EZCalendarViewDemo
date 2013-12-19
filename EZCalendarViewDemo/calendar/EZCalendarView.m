@@ -10,18 +10,22 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kEZCalendarViewTopBarHeight 60
-#define kEZCalendarViewWidth        [UIScreen mainScreen].bounds.size.width
-#define kEZCalendarViewDayWidth     44
-#define kEZCalendarViewDayHeight    44
+#define kEZCalendarViewWidth        320
+//#define kEZCalendarViewDayWidth     44
+//#define kEZCalendarViewDayHeight    44
 
 @interface EZCalendarView ()
 @property (nonatomic, assign) BOOL              isAnimating;
 @property (nonatomic, assign) BOOL              prepAnimationPreviousMonth;
 @property (nonatomic, assign) BOOL              prepAnimationNextMonth;
 @property (nonatomic, strong) UIScrollView      *scrollView;
-@property (nonatomic, strong) NSMutableArray    *imageViews;
+@property (nonatomic, strong) NSMutableArray    *views;
 @property (nonatomic, strong) UIImageView       *animationView_A;
 @property (nonatomic, strong) UIImageView       *animationView_B;
+
+@property (nonatomic, assign) CGFloat       calendarViewWidth;
+@property (nonatomic, assign) CGFloat       calendarViewDayWidth;
+@property (nonatomic, assign) CGFloat       calendarViewDayHeight ;
 
 - (void)selectDate:(int)date;
 - (int)numRows;
@@ -47,6 +51,10 @@
     self = [super initWithFrame:frame];
 
     if (self) {
+        self.calendarViewWidth = frame.size.width;
+        float length = self.calendarViewWidth/7 -2 ;
+        self.calendarViewDayHeight = ceil(length);
+        self.calendarViewDayWidth = ceil(length);
         self.contentMode = UIViewContentModeTop;
         self.clipsToBounds = YES;
         self.isAnimating = NO;
@@ -54,7 +62,7 @@
         //初始化箭头
         _arrowColor = [UIColor blackColor];
         // 初始化标题
-        self.labelCurrentMonth = [[UILabel alloc] initWithFrame:CGRectMake(34, 0, kEZCalendarViewWidth - 68, 40)];
+        self.labelCurrentMonth = [[UILabel alloc] initWithFrame:CGRectMake(34, 0, self.calendarViewWidth - 68, 40)];
         [self addSubview:self.labelCurrentMonth];
         self.labelCurrentMonth.backgroundColor = [UIColor whiteColor];
         self.labelCurrentMonth.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
@@ -63,12 +71,13 @@
         self.currentMonthEnable = YES;
         self.currentMonthFormat = @"MMMM yyyy";
         // 初始化滚动
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kEZCalendarViewTopBarHeight, kEZCalendarViewWidth, (kEZCalendarViewDayHeight + 2) * 6 + 1)];
-        //        self.scrollView.clipsToBounds = YES;
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kEZCalendarViewTopBarHeight, self.calendarViewWidth, (self.calendarViewDayHeight + 2) * 6 + 1)];
+               self.scrollView.clipsToBounds = YES;
+        _scrollEnabled = YES;
         self.scrollView.delegate = self;
-        self.scrollView.contentSize = CGSizeMake(kEZCalendarViewWidth * 3, self.bounds.size.height);
+        self.scrollView.contentSize = CGSizeMake(self.calendarViewWidth * 3, self.bounds.size.height);
         self.scrollView.showsHorizontalScrollIndicator = NO;
-        [self.scrollView setContentOffset:CGPointMake(kEZCalendarViewWidth, 0) animated:NO];
+        [self.scrollView setContentOffset:CGPointMake(self.calendarViewWidth, 0) animated:NO];
         self.scrollView.pagingEnabled = YES;
         self.scrollView.backgroundColor = [UIColor clearColor]; // [UIColor colorWithWhite:.5 alpha:.5];
 //        self.scrollView.autoresizingMask =
@@ -209,7 +218,7 @@
 
     UIImage *imageNextMonth = [self drawCurrentState];
     float   targetSize = fmaxf(oldSize, self.calendarHeight);
-    UIView  *animationHolder = [[UIView alloc] initWithFrame:CGRectMake(0, kEZCalendarViewTopBarHeight, kEZCalendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
+    UIView  *animationHolder = [[UIView alloc] initWithFrame:CGRectMake(0, kEZCalendarViewTopBarHeight, self.calendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
     [animationHolder setClipsToBounds:YES];
     [self addSubview:animationHolder];
 
@@ -219,11 +228,11 @@
     [animationHolder addSubview:self.animationView_A];
     [animationHolder addSubview:self.animationView_B];
 
-    self.animationView_B.frameX = kEZCalendarViewWidth;
+    self.animationView_B.frameX = self.calendarViewWidth;
 
     /*
      *   if (hasNextMonthDays) {
-     *    self.animationView_B.frameY = self.animationView_A.frameY + self.animationView_A.frameHeight - (kEZCalendarViewDayHeight+3);
+     *    self.animationView_B.frameY = self.animationView_A.frameY + self.animationView_A.frameHeight - (self.calendarViewDayHeight+3);
      *   } else {
      *    self.animationView_B.frameY = self.animationView_A.frameY + self.animationView_A.frameHeight -3;
      *   }
@@ -235,13 +244,13 @@
     [UIView animateWithDuration:duration
             animations  :^{
         [self updateSize];
-        self.animationView_A.frameX = -kEZCalendarViewWidth;
+        self.animationView_A.frameX = -self.calendarViewWidth;
         self.animationView_B.frameX = 0;
 
         /*
          *   //blockSafeSelf.frameHeight = 100;
          *   if (hasNextMonthDays) {
-         *    self.animationView_A.frameY = -self.animationView_A.frameHeight + kEZCalendarViewDayHeight+3;
+         *    self.animationView_A.frameY = -self.animationView_A.frameHeight + self.calendarViewDayHeight+3;
          *   } else {
          *    self.animationView_A.frameY = -self.animationView_A.frameHeight + 3;
          *   }
@@ -288,7 +297,7 @@
     UIImage *imagePreviousMonth = [self drawCurrentState];
 
     float   targetSize = fmaxf(oldSize, self.calendarHeight);
-    UIView  *animationHolder = [[UIView alloc] initWithFrame:CGRectMake(0, kEZCalendarViewTopBarHeight, kEZCalendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
+    UIView  *animationHolder = [[UIView alloc] initWithFrame:CGRectMake(0, kEZCalendarViewTopBarHeight, self.calendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
 
     [animationHolder setClipsToBounds:YES];
     [self addSubview:animationHolder];
@@ -298,11 +307,11 @@
     [animationHolder addSubview:self.animationView_A];
     [animationHolder addSubview:self.animationView_B];
 
-    self.animationView_B.frameX = -kEZCalendarViewWidth;
+    self.animationView_B.frameX = -self.calendarViewWidth;
 
     /*
      *   if (hasPreviousDays) {
-     *    self.animationView_B.frameY = self.animationView_A.frameY - (self.animationView_B.frameHeight-kEZCalendarViewDayHeight) + 3;
+     *    self.animationView_B.frameY = self.animationView_A.frameY - (self.animationView_B.frameHeight-self.calendarViewDayHeight) + 3;
      *   } else {
      *    self.animationView_B.frameY = self.animationView_A.frameY - self.animationView_B.frameHeight + 3;
      *   }
@@ -313,12 +322,12 @@
     [UIView animateWithDuration:duration
             animations:^{
         [self updateSize];
-        self.animationView_A.frameX = kEZCalendarViewWidth;
+        self.animationView_A.frameX = self.calendarViewWidth;
         self.animationView_B.frameX = 0;
 
         /*
          *   if (hasPreviousDays) {
-         *    self.animationView_A.frameY = self.animationView_B.frameHeight-(kEZCalendarViewDayHeight+3);
+         *    self.animationView_A.frameY = self.animationView_B.frameHeight-(self.calendarViewDayHeight+3);
          *
          *   } else {
          *    self.animationView_A.frameY = self.animationView_B.frameHeight-3;
@@ -370,7 +379,7 @@
 
 - (float)calendarHeight
 {
-    return kEZCalendarViewTopBarHeight + [self numRows] * (kEZCalendarViewDayHeight + 2) + 1;
+    return kEZCalendarViewTopBarHeight + [self numRows] * (self.calendarViewDayHeight + 2) + 1;
 }
 
 - (int)numRows
@@ -393,8 +402,8 @@
         float   xLocation = touchPoint.x;
         float   yLocation = touchPoint.y - kEZCalendarViewTopBarHeight;
 
-        int column = floorf(xLocation / (kEZCalendarViewDayWidth + 2));
-        int row = floorf(yLocation / (kEZCalendarViewDayHeight + 2));
+        int column = floorf(xLocation / (self.calendarViewDayWidth + 2));
+        int row = floorf(yLocation / (self.calendarViewDayHeight + 2));
 
         int blockNr = (column + 1) + row * 7;
         int firstWeekDay = [self.currentMonth firstWeekDayInMonth] - 1; // -1 because weekdays begin at 1, not 0
@@ -407,7 +416,7 @@
     self.markedColors = nil;
 
     CGRect  rectArrowLeft = CGRectMake(0, 0, 50, 40);
-    CGRect  rectArrowRight = CGRectMake(self.frame.size.width - 50, 0, 50, 40);
+    CGRect  rectArrowRight = CGRectMake(self.calendarViewWidth - 50, 0, 50, 40);
 
     // Touch either arrows or month in middle
     if (CGRectContainsPoint(rectArrowLeft, touchPoint)) {
@@ -432,6 +441,8 @@
 #pragma mark - Drawing
 - (void)drawRect:(CGRect)rect
 {
+    [super drawRect:rect];
+    
     int firstWeekDay = [self.currentMonth firstWeekDayInMonth] - 1; // -1 because weekdays begin at 1, not 0
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -439,7 +450,7 @@
     [formatter setDateFormat:self.currentMonthFormat];
     self.labelCurrentMonth.text = [formatter stringFromDate:self.currentMonth];
     [self.labelCurrentMonth sizeToFit];
-    self.labelCurrentMonth.frameX = roundf(kEZCalendarViewWidth / 2 - self.labelCurrentMonth.frameWidth / 2);
+    self.labelCurrentMonth.frameX = roundf(self.calendarViewWidth / 2 - self.labelCurrentMonth.frameWidth / 2);
     self.labelCurrentMonth.frameY = 13;
     [self.currentMonth firstWeekDayInMonth];
 
@@ -447,7 +458,7 @@
     CGContextClearRect(UIGraphicsGetCurrentContext(), rect);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    CGRect rectangle = CGRectMake(0, 0, kEZCalendarViewWidth, kEZCalendarViewTopBarHeight);
+    CGRect rectangle = CGRectMake(0, 0, self.calendarViewWidth, kEZCalendarViewTopBarHeight);
     CGContextAddRect(context, rectangle);
     CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     CGContextFillPath(context);
@@ -471,9 +482,9 @@
 
     // Arrow right
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, kEZCalendarViewWidth - (xmargin + arrowSize / 1.5), ymargin);
-    CGContextAddLineToPoint(context, kEZCalendarViewWidth - xmargin, ymargin + arrowSize / 2);
-    CGContextAddLineToPoint(context, kEZCalendarViewWidth - (xmargin + arrowSize / 1.5), ymargin + arrowSize);
+    CGContextMoveToPoint(context, self.calendarViewWidth - (xmargin + arrowSize / 1.5), ymargin);
+    CGContextAddLineToPoint(context, self.calendarViewWidth - xmargin, ymargin + arrowSize / 2);
+    CGContextAddLineToPoint(context, self.calendarViewWidth - (xmargin + arrowSize / 1.5), ymargin + arrowSize);
 //    CGContextAddLineToPoint(context, self.frame.size.width - (xmargin + arrowSize / 1.5), ymargin);
 
     CGContextSetStrokeColorWithColor(context,
@@ -493,16 +504,16 @@
 
     for (int i = 0; i < [weekdays count]; i++) {
         NSString *weekdayValue = (NSString *)[weekdays objectAtIndex:i];
-        [weekdayValue drawInRect:CGRectMake(i * (kEZCalendarViewDayWidth + 2), 40, kEZCalendarViewDayWidth + 2, 20) withFont:self.weekdayFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentCenter];
+        [weekdayValue drawInRect:CGRectMake(i * (self.calendarViewDayWidth + 2), 40, self.calendarViewDayWidth + 2, 20) withFont:self.weekdayFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentCenter];
     }
 
     int numRows = [self numRows];
-
+//    NSLog(@"numRows__%d",numRows);
     CGContextSetAllowsAntialiasing(context, NO);
 
     // Grid background
-    float   gridHeight = numRows * (kEZCalendarViewDayHeight + 2) + 1;
-    CGRect  rectangleGrid = CGRectMake(0, kEZCalendarViewTopBarHeight, self.frame.size.width, gridHeight);
+    float   gridHeight = numRows * (self.calendarViewDayHeight + 2) + 1;
+    CGRect  rectangleGrid = CGRectMake(0, kEZCalendarViewTopBarHeight, self.calendarViewWidth, gridHeight);
     CGContextAddRect(context, rectangleGrid);
     CGContextSetFillColorWithColor(context, self.gridBackgroundColor.CGColor);
     CGContextFillPath(context);
@@ -511,20 +522,20 @@
     CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
     CGContextBeginPath(context);
     CGContextMoveToPoint(context, 0, kEZCalendarViewTopBarHeight + 1);
-    CGContextAddLineToPoint(context, kEZCalendarViewWidth, kEZCalendarViewTopBarHeight + 1);
+    CGContextAddLineToPoint(context, self.calendarViewWidth, kEZCalendarViewTopBarHeight + 1);
 
     for (int i = 1; i < 7; i++) {
         // 竖线
-        CGContextMoveToPoint(context, i * (kEZCalendarViewDayWidth + 1) + i * 1 - 1, kEZCalendarViewTopBarHeight);
-        CGContextAddLineToPoint(context, i * (kEZCalendarViewDayWidth + 1) + i * 1 - 1, kEZCalendarViewTopBarHeight + gridHeight);
+        CGContextMoveToPoint(context, i * (self.calendarViewDayWidth + 1) + i * 1 - 1, kEZCalendarViewTopBarHeight);
+        CGContextAddLineToPoint(context, i * (self.calendarViewDayWidth + 1) + i * 1 - 1, kEZCalendarViewTopBarHeight + gridHeight);
 
         if (i > numRows - 1) {
             continue;
         }
 
         // 横线
-        CGContextMoveToPoint(context, 0, kEZCalendarViewTopBarHeight + i * (kEZCalendarViewDayHeight + 1) + i * 1 + 1);
-        CGContextAddLineToPoint(context, kEZCalendarViewWidth, kEZCalendarViewTopBarHeight + i * (kEZCalendarViewDayHeight + 1) + i * 1 + 1);
+        CGContextMoveToPoint(context, 0, kEZCalendarViewTopBarHeight + i * (self.calendarViewDayHeight + 1) + i * 1 + 1);
+        CGContextAddLineToPoint(context, self.calendarViewWidth, kEZCalendarViewTopBarHeight + i * (self.calendarViewDayHeight + 1) + i * 1 + 1);
     }
 
     CGContextStrokePath(context);
@@ -533,24 +544,24 @@
     CGContextSetStrokeColorWithColor(context, [UIColor colorWithHexString:@"0xcfd4d8"].CGColor);
     CGContextBeginPath(context);
     CGContextMoveToPoint(context, 0, kEZCalendarViewTopBarHeight);
-    CGContextAddLineToPoint(context, kEZCalendarViewWidth, kEZCalendarViewTopBarHeight);
+    CGContextAddLineToPoint(context, self.calendarViewWidth, kEZCalendarViewTopBarHeight);
 
     for (int i = 1; i < 7; i++) {
         // columns
-        CGContextMoveToPoint(context, i * (kEZCalendarViewDayWidth + 1) + i * 1, kEZCalendarViewTopBarHeight);
-        CGContextAddLineToPoint(context, i * (kEZCalendarViewDayWidth + 1) + i * 1, kEZCalendarViewTopBarHeight + gridHeight);
+        CGContextMoveToPoint(context, i * (self.calendarViewDayWidth + 1) + i * 1, kEZCalendarViewTopBarHeight);
+        CGContextAddLineToPoint(context, i * (self.calendarViewDayWidth + 1) + i * 1, kEZCalendarViewTopBarHeight + gridHeight);
 
         if (i > numRows - 1) {
             continue;
         }
 
         // rows
-        CGContextMoveToPoint(context, 0, kEZCalendarViewTopBarHeight + i * (kEZCalendarViewDayHeight + 1) + i * 1);
-        CGContextAddLineToPoint(context, kEZCalendarViewWidth, kEZCalendarViewTopBarHeight + i * (kEZCalendarViewDayHeight + 1) + i * 1);
+        CGContextMoveToPoint(context, 0, kEZCalendarViewTopBarHeight + i * (self.calendarViewDayHeight + 1) + i * 1);
+        CGContextAddLineToPoint(context, self.calendarViewWidth, kEZCalendarViewTopBarHeight + i * (self.calendarViewDayHeight + 1) + i * 1);
     }
 
     CGContextMoveToPoint(context, 0, gridHeight + kEZCalendarViewTopBarHeight);
-    CGContextAddLineToPoint(context, kEZCalendarViewWidth, gridHeight + kEZCalendarViewTopBarHeight);
+    CGContextAddLineToPoint(context, self.calendarViewWidth, gridHeight + kEZCalendarViewTopBarHeight);
     CGContextStrokePath(context);
 
     CGContextSetAllowsAntialiasing(context, YES);
@@ -559,6 +570,7 @@
     CGContextSetFillColorWithColor(context,
         [UIColor greenColor].CGColor);
 
+    
 //    NSLog(@"currentMonth month = %i, first weekday in month = %i", [self.currentMonth month], [self.currentMonth firstWeekDayInMonth]);
 
     int     numBlocks = numRows * 7;
@@ -602,8 +614,8 @@
         int targetDate = i;
         int targetColumn = i % 7;
         int targetRow = i / 7;
-        int targetX = targetColumn * (kEZCalendarViewDayWidth + 2);
-        int targetY = kEZCalendarViewTopBarHeight + targetRow * (kEZCalendarViewDayHeight + 2);
+        int targetX = targetColumn * (self.calendarViewDayWidth + 2);
+        int targetY = kEZCalendarViewTopBarHeight + targetRow * (self.calendarViewDayHeight + 2);
 
         // BOOL isCurrentMonth = NO;
         if (i < firstWeekDay) { // previous month
@@ -629,7 +641,7 @@
 
         // draw selected date
         if (self.selectedDate && (i == selectedDateBlock)) {
-            CGRect rectangleGrid = CGRectMake(targetX, targetY, kEZCalendarViewDayWidth + 2, kEZCalendarViewDayHeight + 2);
+            CGRect rectangleGrid = CGRectMake(targetX, targetY, self.calendarViewDayWidth + 2, self.calendarViewDayHeight + 2);
             CGContextAddRect(context, rectangleGrid);
             CGContextSetFillColorWithColor(context, self.selectedDateCellColor.CGColor);
             CGContextFillPath(context);
@@ -637,7 +649,7 @@
             CGContextSetFillColorWithColor(context,
                 [UIColor whiteColor].CGColor);
         } else if (todayBlock == i) {
-            CGRect rectangleGrid = CGRectMake(targetX, targetY, kEZCalendarViewDayWidth + 2, kEZCalendarViewDayHeight + 2);
+            CGRect rectangleGrid = CGRectMake(targetX, targetY, self.calendarViewDayWidth + 2, self.calendarViewDayHeight + 2);
             CGContextAddRect(context, rectangleGrid);
             CGContextSetFillColorWithColor(context, self.todayCellColor.CGColor);
             CGContextFillPath(context);
@@ -646,7 +658,7 @@
                 [UIColor whiteColor].CGColor);
         }
 
-        [date drawInRect:CGRectMake(targetX + 2, targetY + 10, kEZCalendarViewDayWidth, kEZCalendarViewDayHeight) withFont:self.dayCellFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentCenter];
+        [date drawInRect:CGRectMake(targetX + 2, targetY + 10, self.calendarViewDayWidth, self.calendarViewDayHeight) withFont:self.dayCellFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentCenter];
     }
 
     //    CGContextClosePath(context);
@@ -675,8 +687,8 @@
         int targetRow = targetBlock / 7;
 
         float   diameter = 5.0f;
-        int     targetX = targetColumn * (kEZCalendarViewDayWidth + 2) + (kEZCalendarViewDayWidth - diameter) / 2;
-        int     targetY = kEZCalendarViewTopBarHeight + targetRow * (kEZCalendarViewDayHeight + 2) + 38;
+        int     targetX = targetColumn * (self.calendarViewDayWidth + 2) + (self.calendarViewDayWidth - diameter) / 2;
+        int     targetY = kEZCalendarViewTopBarHeight + targetRow * (self.calendarViewDayHeight + 2) + 38;
 
         //        CGRect rectangle = CGRectMake(targetX,targetY,32,2);
         //        CGContextAddRect(context, rectangle);
@@ -706,9 +718,9 @@
 #pragma mark - Draw image for animation
 - (UIImage *)drawCurrentState
 {
-    float targetHeight = kEZCalendarViewTopBarHeight + [self numRows] * (kEZCalendarViewDayHeight + 2) + 1;
+    float targetHeight = kEZCalendarViewTopBarHeight + [self numRows] * (self.calendarViewDayHeight + 2) + 1;
 
-    UIGraphicsBeginImageContext(CGSizeMake(kEZCalendarViewWidth, targetHeight - kEZCalendarViewTopBarHeight));
+    UIGraphicsBeginImageContext(CGSizeMake(self.calendarViewWidth, targetHeight - kEZCalendarViewTopBarHeight));
     CGContextRef c = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(c, 0, -kEZCalendarViewTopBarHeight);
     [self.layer renderInContext:c];
@@ -723,9 +735,11 @@
     NSArray *arr = @[@(-1), @(2), @(-1)];
     int     count = arr.count;
    
-    if (!self.imageViews) {
-        self.imageViews = [[NSMutableArray alloc] initWithCapacity:count];
+    if (!self.views) {
+        self.views = [[NSMutableArray alloc] initWithCapacity:count];
     }
+
+    
 
     for (int i = 0; i < count; i++) {
         //        self.selectedDate=nil;
@@ -762,11 +776,11 @@
         } else if (i == 2) {
             //            prepAnimationNextMonth = NO;
         }
+        
         [self setNeedsDisplay];
 
         UIImage *imageMonth = [self drawCurrentState];
-           float   targetSize = fmaxf(0, self.calendarHeight);
-//        float   targetSize = fmaxf(0, self.calendarHeight);
+//           float   targetSize = fmaxf(0, self.calendarHeight);
         float   startX = 0.;
 
         if (i == 0) {
@@ -777,15 +791,18 @@
             startX = 1.;
         }
 
-        UIImageView *imageViewMonth = [[UIImageView alloc]initWithImage:imageMonth];//[[UIImageView alloc] initWithFrame:CGRectMake(kEZCalendarViewWidth * (startX), 0, kEZCalendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
+        UIImageView *imageViewMonth = [[UIImageView alloc]initWithImage:imageMonth];//[[UIImageView alloc] initWithFrame:CGRectMake(self.calendarViewWidth * (startX), 0, self.calendarViewWidth, targetSize - kEZCalendarViewTopBarHeight)];
         [imageViewMonth setClipsToBounds:YES];
         imageViewMonth.image = imageMonth;
-        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(kEZCalendarViewWidth * (startX), 0, kEZCalendarViewWidth,(kEZCalendarViewDayHeight + 2) * 6 + 1)];
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(self.calendarViewWidth * (startX), 0, self.calendarViewWidth,(self.calendarViewDayHeight + 2) * 6 + 1)];
         view.backgroundColor = self.gridBackgroundColor;
         [view addSubview:imageViewMonth];
         [self.scrollView addSubview:view];
-        [self.imageViews addObject:view];
+        [self.views addObject:view];
     }
+//    [self setNeedsDisplay];
+//    self.scrollView.frameHeight = (self.calendarViewDayHeight + 2) * 6 + 100;
+//    self.scrollView.contentSize = CGSizeMake(self.calendarViewWidth * 3, (self.calendarViewDayHeight + 2) * 6 + 1);
 
     self.scrollView.backgroundColor = self.separateLineColor;
 }
@@ -793,15 +810,17 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+//    [self updateSize];
+//    NSLog(@"____%f",self.scrollView.frameHeight);
     CGFloat offset = scrollView.contentOffset.x;
 
-    NSLog(@"ss%f", offset);
+//    NSLog(@"ss%f", offset);
 
-    if (offset == kEZCalendarViewWidth) {
+    if (offset == self.calendarViewWidth) {
         return;
     }
 
-    if (offset >= (2 * kEZCalendarViewWidth)) {
+    if (offset >= (2 * self.calendarViewWidth)) {
         [self showNextMonthAnimated:NO];
         //        self.scrollView.backgroundColor = [UIColor clearColor];
          [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0) animated:NO];
@@ -815,12 +834,12 @@
         return;
     }
 
-    if (self.imageViews.count == 0) {
+    if (self.views.count == 0) {
         [self setScrollImages];
 
-        for (UIView *imageView in self.imageViews) {
+        for (UIView *view in self.views) {
             CGFloat scale = 1.f - (fabs(offset) > 0 ? 0.005 : 0);
-            imageView.transform = CGAffineTransformMakeScale(scale, 1);
+            view.transform = CGAffineTransformMakeScale(scale, 1);
         }
     }
 }
@@ -838,19 +857,19 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView
 {
-    NSLog(@"aaaaa");
+//    NSLog(@"aaaaa");
     self.scrollView.backgroundColor = [UIColor clearColor];
 
-    for (UIImageView *imageView in self.imageViews) {
-        imageView.transform = CGAffineTransformMakeScale(1, 1);
+    for (UIImageView *view in self.views) {
+        view.transform = CGAffineTransformMakeScale(1, 1);
     }
 
     NSArray *subViews = [_scrollView subviews];
 
     if ([subViews count] != 0) {
         [subViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        [self.imageViews removeAllObjects];
-        self.imageViews = nil;
+        [self.views removeAllObjects];
+        self.views = nil;
     }
 
     [self.scrollView setContentOffset:CGPointMake(_scrollView.frame.size.width, 0) animated:NO];
@@ -919,6 +938,15 @@
 -(void)setArrowColor:(UIColor *)arrowColor{
     _arrowColor = arrowColor;
     [self setNeedsDisplay];
+}
+
+-(void)setScrollEnabled:(BOOL)scrollEnabled{
+    _scrollEnabled = scrollEnabled;
+    if (_scrollEnabled) {
+        self.scrollView.delegate = self;
+    }else{
+     self.scrollView.delegate = nil;
+    }
 }
 @end
 

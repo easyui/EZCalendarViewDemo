@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"今天" style:UIBarButtonItemStyleDone
                                                                              target:self action:@selector(todayPress)];
-    self.calendar = [[EZCalendarView alloc] initWithFrame:CGRectMake(0, 60, [UIScreen mainScreen].bounds.size.width, 0)];
+    self.calendar = [[EZCalendarView alloc] initWithFrame:CGRectMake(0, 60,[UIScreen mainScreen].bounds.size.width-100, 0)];
     self.calendar.currentMonthEnable = NO;
     self.calendar.weekdayFont = [UIFont boldSystemFontOfSize:12];
     self.calendar.weekdayColor = [UIColor redColor];
@@ -84,5 +84,6 @@
     self.calendar.selectTodayMarkedColor = [UIColor redColor];
         self.calendar.weekdayColor = [UIColor orangeColor];
     self.calendar.separateLineColor = [UIColor greenColor];
+    self.calendar.scrollEnabled = NO;
 }
 @end
