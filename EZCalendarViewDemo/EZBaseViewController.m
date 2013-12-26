@@ -2,7 +2,7 @@
 //  EZBaseViewController.m
 //  EZCalendarViewDemo
 //
-//  Created by NeuLion SH on 13-12-18.
+//  Created by EZ on 13-12-18.
 //  Copyright (c) 2013年 cactus. All rights reserved.
 //
 
@@ -32,6 +32,7 @@
     EZCalendarView *calendar= [[EZCalendarView alloc] initWithFrame:CGRectMake(0, 60, [UIScreen mainScreen].bounds.size.width, 0)];
     calendar.delegate=self;
     [self.view addSubview:calendar];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 
 }
 
